@@ -1,0 +1,5 @@
+indexes:
+- kind: stock
+  properties:
+  - name: companySymbol
+  - name: dateTime

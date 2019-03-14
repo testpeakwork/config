@@ -1,0 +1,33 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: poll-prices
+spec:
+  template:
+    metadata:
+      labels:
+        app: poll-prices
+    spec:
+      volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: my-app-creds
+          items:
+          - key: sa_json
+            path: sa_credentials.json
+      containers:
+      - name: poll-prices
+        image: gcr.io/peakwork-test-233614/poll-prices:v1
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: google-cloud-key
+          mountPath: /etc/gcp
+          readOnly: true
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/gcp/sa_credentials.json
+        - name: SYMBOLS
+          value: AAPL,FB
+        - name: CRON_CURRENT
+          value: 0 0/1 * * * *
