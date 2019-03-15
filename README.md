@@ -35,3 +35,8 @@ poll-service will get data every 1 minute.
 endpoint-service will be available by link: http://localhost:8080/v1/stocks,
 swagger : http://localhost:8080/swagger-ui.html
 
+7. Improvements:
+
+- Replace scheduled task implementation to Pub/Sub subscription client and create Cloud Scheduler for this topic
+- Configure Ingress for endpoint
+- Add functional for saving archive prices
